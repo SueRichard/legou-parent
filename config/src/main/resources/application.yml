@@ -1,0 +1,30 @@
+server:
+  port: 8888
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 10
+    lease-renewal-interval-in-seconds: 5
+spring:
+  profiles:
+    active: composite,default # 如果使用本地配置文件，需要增加composite(名称固定，不可以随便改)，多profile时，谁在前面优先级越高
+  cloud:
+    config:
+      server:
+        bootstrap: true # 提前加载配置文件，保证后续数据库连接正常启动
+        default-profile: default
+        default-label: main
+        composite: # 使用本地配置，与git分离
+          - type: native
+            search-locations: file:C:\legou\project\legou-parent\config-repo # 注意这个参数名有s结尾
+        git:
+          uri: git@github.com:sue/legou-parent.git
+          username: sue
+          password: ######
+          search-paths: config-repo # 库/找这个目录
