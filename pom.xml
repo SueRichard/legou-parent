@@ -15,6 +15,7 @@
         <module>legou-item</module>
         <module>legou-item/legou-item-interface</module>
         <module>legou-item/legou-item-serive</module>
+        <module>legou-upload</module>
     </modules>
 
     <packaging>pom</packaging>
