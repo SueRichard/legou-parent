@@ -5,6 +5,7 @@ import com.hh.legou.core.service.impl.CrudServiceImpl;
 import com.hh.legou.item.dao.SpecGroupDao;
 import com.hh.legou.item.po.SpecGroup;
 import com.hh.legou.item.service.ISpecGroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.List;
  */
 @Service
 public class SpecGroupServiceImpl extends CrudServiceImpl<SpecGroup> implements ISpecGroupService {
+
+    @Autowired
+    private SpecGroupDao specGroupDao;
     /**
      * @param entity
      * @return
@@ -33,6 +37,7 @@ public class SpecGroupServiceImpl extends CrudServiceImpl<SpecGroup> implements 
      */
     @Override
     public void saveGroup(Long cid, List<SpecGroup> groups) {
-         //根据id删除所有的规格参数分组和规格参数项
+        //根据id删除所有的规格参数分组和规格参数项
+
     }
 }
