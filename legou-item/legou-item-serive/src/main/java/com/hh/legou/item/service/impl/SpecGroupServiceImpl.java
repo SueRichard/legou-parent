@@ -44,7 +44,7 @@ public class SpecGroupServiceImpl extends CrudServiceImpl<SpecGroup> implements 
     public void saveGroup(Long cid, List<SpecGroup> groups) {
         //根据id删除所有的规格参数分组和规格参数项
         getBaseMapper().delete(Wrappers.<SpecGroup>query().eq("cid_", cid));
-        specParamDao.delete(Wrappers.<SpecParam>query().eq("cid", cid));
+        specParamDao.delete(Wrappers.<SpecParam>query().eq("cid_", cid));
 
         //添加规格参数组和规格项
         for (SpecGroup group : groups) {
