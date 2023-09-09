@@ -16,7 +16,7 @@ import java.util.List;
  * @time 02/09/2023 17:41
  */
 @Service
-public class ICategoryServiceImpl extends CrudServiceImpl<Category> implements ICategoryService {
+public class CategoryServiceImpl extends CrudServiceImpl<Category> implements ICategoryService {
     @Override
     public List<Category> list(Category entity) {
         QueryWrapper<Category> queryWrapper = Wrappers.query();
