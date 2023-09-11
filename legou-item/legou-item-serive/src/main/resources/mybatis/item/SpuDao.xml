@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hh.legou.item.dao.SpuDao">
+    <select id="selectByPage" resultType="com.hh.legou.item.po.Spu">
+        select
+            a.*,
+        <!--注意别名，需要实体类有才可以-->
+            b.name_ as brandName,
+            c.title_ as categoryName
+        from
+            legou.spu_ a
+        left join
+                legou.brand_ b on a.brand_id_ = b.id_
+        left join
+                legou.category_ c on a.cid3_ = c.id_
+<!--        页面查询用-->
+        <where>
+<!--            左边是表里列名，右边是对应返回实体类的属性名-->
+            <if test="title != null and title != ''">
+                and a.title_ like '%${title}%'
+            </if>
+            <if test="cid3 != null and cid3 != ''">
+                and cid3_ = #{cid3}
+            </if>
+            <if test="brandId != null and brandId != ''">
+                and brand_id_ = #{brandId}
+            </if>
+        </where>
+    </select>
+    <select id="selectById" resultMap="spuMap">
+        select
+            * 
+        from
+            legou.spu_
+        where
+            id_ = #{id}
+    </select>
+    <resultMap id="spuMap" type="com.hh.legou.item.po.Spu">
+        <id column="id_" property="id"/>
+        <!--  association 一对一  -->
+        <association property="spuDetail" javaType="com.hh.legou.item.po.SpuDetail" select="com.hh.legou.item.dao.SpuDetailDao.selectById" column="id_">
+            <id column="id_" property="id"/>
+        </association>
+        <!--  collection 一对多 -->
+        <collection property="skus" javaType="java.util.List" ofType="com.hh.legou.item.po.Sku" select="com.hh.legou.item.dao.SkuDao.findBySpuId" column="id_">
+            <id column="id_" property="id"/>
+        </collection>
+    </resultMap>
+</mapper>
