@@ -49,5 +49,5 @@ else
 end
 
 
---重定向到商品分类微服务
+--- 重定向到商品分类微服务来代替查询数据库
 --return ngx.redirect("http://192.168.220.1:8062/api/item/category/list")
