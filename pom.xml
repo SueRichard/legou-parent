@@ -14,6 +14,7 @@
         <module>config</module>
         <module>legou-item</module>
         <module>legou-upload</module>
+        <module>legou-canal</module>
     </modules>
 
     <packaging>pom</packaging>
