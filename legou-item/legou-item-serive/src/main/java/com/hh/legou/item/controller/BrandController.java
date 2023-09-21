@@ -28,8 +28,8 @@ public class BrandController extends BaseController<IBrandService, Brand> {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }*/
-        System.out.println("停止休眠");
+        }
+        System.out.println("停止休眠");*/
         //加载的时候需要把id查询出来
         List<Category> categories = service.selectCategoryByBrandId(entity.getId());
         Long[] ids = new Long[categories.size()];
