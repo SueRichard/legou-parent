@@ -22,6 +22,14 @@ import java.util.List;
 public class BrandController extends BaseController<IBrandService, Brand> {
     @Override
     public void afterEdit(Brand entity) {
+        /*//此处休眠用来测试nginx统一ip限流
+        System.out.println("开始休眠");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }*/
+        System.out.println("停止休眠");
         //加载的时候需要把id查询出来
         List<Category> categories = service.selectCategoryByBrandId(entity.getId());
         Long[] ids = new Long[categories.size()];
