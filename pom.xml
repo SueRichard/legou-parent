@@ -15,6 +15,9 @@
         <module>legou-item</module>
         <module>legou-upload</module>
         <module>legou-canal</module>
+        <module>legou-search</module>
+        <module>legou-search/legou-search-interface</module>
+        <module>legou-search/legou-search-service</module>
     </modules>
 
     <packaging>pom</packaging>
