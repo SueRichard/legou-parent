@@ -1,5 +1,7 @@
 package com.hh.legou.item.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.hh.legou.core.service.impl.CrudServiceImpl;
 import com.hh.legou.item.dao.BrandDao;
 import com.hh.legou.item.po.Brand;
@@ -50,5 +52,17 @@ public class BrandServiceImpl extends CrudServiceImpl<Brand> implements IBrandSe
             }
         }
         return result;
+    }
+
+    /**
+     * 根据品牌id集合，得到品牌集合
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public List<Brand> selectBrandByIds(List<Long> ids) {
+        QueryWrapper<Brand> queryWrapper = Wrappers.<Brand>query().in("id_", ids);
+        return getBaseMapper().selectList(queryWrapper);
     }
 }

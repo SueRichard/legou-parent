@@ -1,5 +1,6 @@
 package com.hh.legou.item.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.hh.legou.core.service.impl.CrudServiceImpl;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author hh
@@ -30,5 +32,17 @@ public class CategoryServiceImpl extends CrudServiceImpl<Category> implements IC
             queryWrapper.isNull("parent_id_");
         }
         return getBaseMapper().selectList(queryWrapper);
+    }
+
+    /**
+     * 通过ids查询分类名称集合
+     *
+     * @param ids id集合
+     * @return 根据id查询到的名字
+     */
+    @Override
+    public List<String> selectNamesByIds(List<Long> ids) {
+        QueryWrapper<Category> queryWrapper = Wrappers.<Category>query().in("id_", ids);
+        return getBaseMapper().selectList(queryWrapper).stream().map(item -> item.getTitle()).collect(Collectors.toList());
     }
 }

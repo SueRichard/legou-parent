@@ -19,4 +19,12 @@ public interface IBrandService extends ICrudService<Brand> {
      * @return
      */
     List<Category> selectCategoryByBrandId(Long id);
+
+    /**
+     * 根据品牌id集合，得到品牌集合
+     *
+     * @param ids
+     * @return
+     */
+    List<Brand> selectBrandByIds(List<Long> ids);
 }
