@@ -29,7 +29,7 @@ public interface BrandClient extends BrandApi {
 
         @Override
         public List<Brand> selectBrandByIds(List<Long> ids) {
-            log.info("异常发生，进入fallback方法");
+            log.error("异常发生，进入fallback方法");
 //            return Collections.emptyList();
             return null;
         }

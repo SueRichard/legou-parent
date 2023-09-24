@@ -28,7 +28,7 @@ public interface CategoryClient extends CategoryApi {
          */
         @Override
         public List<Category> list(Category category) {
-            log.info("异常发生，进入fallback方法");
+            log.error("异常发生，进入fallback方法");
             return null;
         }
 
@@ -38,7 +38,7 @@ public interface CategoryClient extends CategoryApi {
          */
         @Override
         public List<String> queryNamesByIds(List<Long> ids) {
-            log.info("异常发生，进入fallback方法");
+            log.error("异常发生，进入fallback方法");
             return null;
         }
 
@@ -48,7 +48,7 @@ public interface CategoryClient extends CategoryApi {
          */
         @Override
         public Category edit(Long id) {
-            log.info("异常发生，进入fallback方法");
+            log.error("异常发生，进入fallback方法");
             return null;
         }
     }

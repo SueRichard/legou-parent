@@ -24,7 +24,7 @@ public interface SkuClient extends SkuApi {
 
         @Override
         public List<Sku> selectSkusBySpuId(Long SpuId) {
-            log.info("异常发生，进入fallback方法");
+            log.error("异常发生，进入fallback方法");
             return null;
         }
     }

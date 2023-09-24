@@ -2,7 +2,7 @@ server:
   port: 9006
 
 logging:
-#  file: demo.log
+  #  file: demo.log
   pattern:
     console: "%d - %msg%n"
   level:
@@ -13,7 +13,7 @@ spring:
   data:
     elasticsearch:
       cluster-name: elasticsearch
-      cluster-nodes: 192.168.110.222:9300
+      cluster-nodes: 192.168.220.110:9300
   elasticsearch:
     rest:
       uris: 192.168.220.110:9200
