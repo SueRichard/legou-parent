@@ -28,5 +28,25 @@ public interface CategoryClient extends CategoryApi {
             LOGGER.info("异常，进入fallback方法");
             return null;
         }
+
+        /**
+         * @param ids
+         * @return
+         */
+        @Override
+        public List<String> queryNamesByIds(List<Long> ids) {
+            LOGGER.info("异常，进入fallback方法");
+            return null;
+        }
+
+        /**
+         * @param id
+         * @return
+         */
+        @Override
+        public Category edit(Long id) {
+            LOGGER.info("异常，进入fallback方法");
+            return null;
+        }
     }
 }
