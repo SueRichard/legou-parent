@@ -18,6 +18,7 @@
         <module>legou-search</module>
         <module>legou-search/legou-search-interface</module>
         <module>legou-search/legou-search-service</module>
+        <module>legou-page</module>
     </modules>
 
     <packaging>pom</packaging>

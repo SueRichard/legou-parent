@@ -1,7 +1,7 @@
 spring:
   application:
     name: search-service
-  # 多个接口@FeignClient()相同服务名会报错，overriding is disabled
+  # 多个接口@FeignClient("相同服务名")会报错，overriding is disabled
   #  设置为true，允许同名
   main:
     allow-bean-definition-overriding: true
