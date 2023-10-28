@@ -16,7 +16,7 @@ import java.util.Map;
  * @time 22/09/2023 13:57
  */
 @Data
-@Document(indexName = "goods_legou_3", type = "docs_legou_3", shards = 1, replicas = 0)
+@Document(indexName = "goods_legou", type = "docs_legou", shards = 1, replicas = 0)
 public class Goods {
 
     /**
