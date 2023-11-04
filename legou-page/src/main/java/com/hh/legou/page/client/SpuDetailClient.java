@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version 1.0
  * @time 28/10/2023 14:37
  */
-@FeignClient(name = "item-service", contextId = "p4", fallback = SpuClient.SpuClientFallback.class)
+@FeignClient(name = "item-service", contextId = "p4", fallback = SpuDetailClient.SpuDetailClientFallback.class)
 public interface SpuDetailClient extends SpuDetailApi {
     @Component
     @RequestMapping("/spu-detail-fallback2")

@@ -1,4 +1,4 @@
-package com.hh.legou.service.impl;
+package com.hh.legou.page.service.impl;
 
 import com.hh.legou.common.utils.JsonUtils;
 import com.hh.legou.item.po.Category;
@@ -9,18 +9,17 @@ import com.hh.legou.page.client.CategoryClient;
 import com.hh.legou.page.client.SkuClient;
 import com.hh.legou.page.client.SpuClient;
 import com.hh.legou.page.client.SpuDetailClient;
-import com.hh.legou.service.PageService;
+import com.hh.legou.page.service.PageService;
+import jdk.nashorn.internal.objects.annotations.Setter;
 import org.apache.commons.lang.CharEncoding;
-import org.apache.commons.lang.CharSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +30,7 @@ import java.util.Map;
  * @version 1.0
  * @time 28/10/2023 15:24
  */
+@Service
 public class PageServiceImpl implements PageService {
 
     @Autowired
@@ -45,7 +45,7 @@ public class PageServiceImpl implements PageService {
     @Autowired
     private SkuClient skuClient;
 
-    @Value("pagePath")
+    @Value("${pagePath}")
     private String pagePath;
 
     /**
@@ -98,7 +98,7 @@ public class PageServiceImpl implements PageService {
         //模版 + contextMap  = html
         Context context = new Context();
         Map<String, Object> dataModel = buildDataModel(id);
-        context.setVariables(dataModel);//springBoot 自动渲染 model.addAttribute("key","value"); ${key}
+        context.setVariables(dataModel);//springBoot 自动渲染 组织数据model.addAttribute("key","value"); 使用数据${key}
 
         File dir = new File(pagePath);
         //目录不存在创建

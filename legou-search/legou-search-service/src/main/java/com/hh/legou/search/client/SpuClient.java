@@ -29,6 +29,16 @@ public interface SpuClient extends SpuApi {
             log.error("异常发生，进入fallback方法");
             return null;
         }
+
+        /**
+         * @param id
+         * @return
+         */
+        @Override
+        public Spu edit(Long id) {
+            log.error("异常发生，进入fallback方法");
+            return null;
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.hh.legou.service;
+package com.hh.legou.page.service;
 
 /**
  * @author hh
