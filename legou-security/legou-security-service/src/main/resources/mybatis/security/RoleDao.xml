@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lxs.legou.security.dao.RoleDao">
+<mapper namespace="com.hh.legou.security.dao.RoleDao">
 
 	<sql id="roleColumns">
 		a.id_ AS "id",

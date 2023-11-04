@@ -16,6 +16,11 @@ spring:
             allowed-methods: "*" #get、post
             max-age: 3600 # 超时时间
       routes:
+        # rbac
+        - id: security-service
+          uri: lb://security-service
+          predicates:
+            - Path=/api/security/**
         - id: item-service # 唯一即可
           #             uri: http://localhost:9005 # 路由目标地址 指定url
           uri: lb://item-service # 微服务名 instance-name 使用LoadBalancerClientFilter，多个节点，负载均衡（轮询、随机负载策略）
