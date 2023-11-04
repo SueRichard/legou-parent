@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @author lxs
+ * @author hh
  * @file BaseController.java
  * @Copyright (C) http://www.lxs.com
  * @email lxosng77@163.com

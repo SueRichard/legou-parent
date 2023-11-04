@@ -19,8 +19,8 @@ import java.util.List;
  */
 @RestController
 //由于前端使用了网关，而后端没有，所以这里路径手动加item
-@RequestMapping("/item/brand")
-@CrossOrigin
+//已加入网关，移除/item前缀和@CrossOrigin注解
+@RequestMapping("/brand")
 public class BrandController extends BaseController<IBrandService, Brand> {
     @Override
     public void afterEdit(Brand entity) {

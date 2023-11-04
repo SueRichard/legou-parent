@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * 树状结构实体类父类
  *
- * @author lxs
+ * @author hh
  * @file BaseTreeEntity.java
  * @Copyright (C) http://www.lxs.com
  * @email lxosng77@163.com

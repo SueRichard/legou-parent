@@ -5,8 +5,8 @@ import java.io.Serializable;
  * @Title: Controller响应实体
  * @Description:
  *
- * @Copyright 2019 lxs - Powered By 雪松
- * @Author: lxs
+ * @Copyright 2019 hh - Powered By 雪松
+ * @Author: hh
  * @Date:  2019/10/3
  * @Version V1.0
  */

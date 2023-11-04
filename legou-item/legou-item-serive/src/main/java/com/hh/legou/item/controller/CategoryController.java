@@ -16,8 +16,7 @@ import java.util.List;
  * @time 02/09/2023 17:57
  */
 @RestController
-@RequestMapping("/item/category")
-@CrossOrigin
+@RequestMapping("/category")
 public class CategoryController extends BaseController<ICategoryService, Category> {
     @ApiOperation(value = "根据ids查询names", notes = "根据ids查询名称列表")
     @GetMapping("/names")

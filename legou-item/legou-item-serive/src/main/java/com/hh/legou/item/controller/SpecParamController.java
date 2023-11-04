@@ -14,8 +14,7 @@ import java.util.List;
  * @time 09/09/2023 12:06
  */
 @RestController
-@RequestMapping("/item/param")
-@CrossOrigin
+@RequestMapping("/param")
 public class SpecParamController extends BaseController<ISpecParamService, SpecParam> {
 
     @ApiOperation(value = "查询", notes = "根据实体条件查询参数")

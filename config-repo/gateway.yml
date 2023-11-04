@@ -1,0 +1,46 @@
+server:
+  port: 8062
+
+spring:
+  redis:
+    host: 192.168.220.110
+    port: 6379
+  cloud:
+    gateway:
+      globalcors: #跨域配置
+        cors-configurations: # 注意里的s
+          '[/**]': # 以下配置注意有没有ed后缀
+            allow-credentials: true # 允许携带令牌（认证信息）
+            allowed-origins: "*" # 允许跨域源 *允许任何域名跨域
+            allowed-headers: "*" # 允许任何参数跨域
+            allowed-methods: "*" #get、post
+            max-age: 3600 # 超时时间
+      routes:
+        - id: item-service # 唯一即可
+          #             uri: http://localhost:9005 # 路由目标地址 指定url
+          uri: lb://item-service # 微服务名 instance-name 使用LoadBalancerClientFilter，多个节点，负载均衡（轮询、随机负载策略）
+          predicates: # 断言 将所有/api/item/**请求地址路由到指定地址，即item-service的uri服务地址
+            - Path=/api/item/**
+          filters: #只对商品微服务限流，default-filter针对所有服务限流
+            - name: RequestRateLimiter # 过滤器名字 来自RequestRateLimiterGatewayFilterFactory
+              args:
+                key-resolver: "#{@ipKeyResolver}" # 限流标识 ip
+                redis-rate-limiter.replenishRate: 1 # 令牌桶填充速率
+                redis-rate-limiter.burstCapacity: 4 # 令牌桶容量
+      default-filters: # 过滤器
+        - StripPrefix=2 # 移除前两个前缀，该名称所属StripPrefixGatewayFilterFactory，其他过滤工厂使用前缀即可，即移走GatewayFilterFactory，详见AbstractGatewayFilterFactory子类
+
+ribbon:
+  ConnectTimeout: 250 # 连接超时时间（ms）
+  ReadTimeout: 2000 # 通信超时时间（ms）
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+  MaxAutoRetriesNextServer: 2 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 1 # 同一实例重试次数
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000 # 熔断超时时长（ms）

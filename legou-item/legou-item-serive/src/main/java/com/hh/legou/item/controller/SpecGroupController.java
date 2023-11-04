@@ -16,8 +16,7 @@ import java.util.List;
  * @time 09/09/2023 11:57
  */
 @RestController
-@RequestMapping("/item/group")
-@CrossOrigin
+@RequestMapping("/group")
 public class SpecGroupController extends BaseController<ISpecGroupService, SpecGroup> {
 
     @ApiOperation(value = "保存规格参数", notes = "保存规格参数")

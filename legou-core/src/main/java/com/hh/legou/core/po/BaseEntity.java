@@ -8,7 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author lxs
+ * @author hh
  * @file BaseEntity.java
  * @Copyright (C) http://www.lxs.com
  * @email lxosng77@163.com

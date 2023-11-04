@@ -15,8 +15,7 @@ import java.util.List;
  * @time 10/09/2023 16:13
  */
 @RestController
-@RequestMapping("/item/spu")
-@CrossOrigin
+@RequestMapping("/spu")
 public class SpuController extends BaseController<ISpuService, Spu> {
     @ApiOperation(value = "保存商品信息", notes = "保存商品信息")
     @PostMapping("/save-spu")

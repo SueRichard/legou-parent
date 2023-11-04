@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @time 10/09/2023 16:13
  */
 @RestController
-@RequestMapping("/item/spu-detail")
-@CrossOrigin
+@RequestMapping("/spu-detail")
 public class SpuDetailController extends BaseController<ISpuDetailService, SpuDetail> {
 }

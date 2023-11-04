@@ -14,8 +14,7 @@ import java.util.List;
  * @time 10/09/2023 16:12
  */
 @RestController
-@RequestMapping("/item/sku")
-@CrossOrigin
+@RequestMapping("/sku")
 public class SkuController extends BaseController<ISkuService, Sku> {
     @ApiOperation(value = "查询spu对应sku", notes = "根据spuId查询sku集合")
     @GetMapping("/select-skus-by-spuid/{id}")
