@@ -20,7 +20,7 @@ public class User extends BaseEntity {
 	@TableField("password_")
 	private String password;
 	@TableField("salt")
-    private String salt; //加密密码的盐
+    private String salt; //加密密码的盐 盐：加盐后相同密码加密后结果不同
 	@TableField("sex_")
 	private String sex;
 	@TableField("tel_")
