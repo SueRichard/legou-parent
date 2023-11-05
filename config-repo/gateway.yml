@@ -16,6 +16,11 @@ spring:
             allowed-methods: "*" #get、post
             max-age: 3600 # 超时时间
       routes:
+        # 组织结构
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/api/admin/**
         # rbac
         - id: security-service
           uri: lb://security-service
