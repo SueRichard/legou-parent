@@ -9,14 +9,15 @@ import com.hh.legou.security.service.IUserService;
 import com.hh.legou.security.utils.BPwdEncoderUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
+//import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
+//import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
+//import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
@@ -41,11 +42,11 @@ import java.util.List;
 @RequestMapping(value = "/user")
 public class UserController extends BaseController<IUserService, User> {
 
-	@Autowired
-	private OAuth2ClientProperties oAuth2ClientProperties;
+//	@Autowired
+//	private OAuth2ClientProperties oAuth2ClientProperties;
 
-	@Autowired
-	private OAuth2ProtectedResourceDetails oAuth2ProtectedResourceDetails;
+//	@Autowired
+//	private OAuth2ProtectedResourceDetails oAuth2ProtectedResourceDetails;
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -55,7 +56,7 @@ public class UserController extends BaseController<IUserService, User> {
 		return new RestTemplate();
 	}
 
-	@RequestMapping("/login")
+	/*@RequestMapping("/login")
 	public ResponseEntity<OAuth2AccessToken> login(@Valid UserLoginParamDto loginDto, BindingResult bindingResult) throws Exception {
 
 		if (bindingResult.hasErrors())
@@ -87,7 +88,7 @@ public class UserController extends BaseController<IUserService, User> {
 		//获取 Token(注意先配置security)
 		return restTemplate.exchange(oAuth2ProtectedResourceDetails.getAccessTokenUri(), HttpMethod.POST, httpEntity, OAuth2AccessToken.class);//访问/oauth/token获取令牌
 
-	}
+	}*/
 
 	@ApiOperation("通过登录获得用户")
 	@GetMapping("/get/{userName}")
