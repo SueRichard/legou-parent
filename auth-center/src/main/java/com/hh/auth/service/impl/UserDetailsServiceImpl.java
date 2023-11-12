@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 按照Spring Security规范自定义UserDetailsService
+ *
  * @author hh
  * @version 1.0
  * @time 12/11/2023 14:33
