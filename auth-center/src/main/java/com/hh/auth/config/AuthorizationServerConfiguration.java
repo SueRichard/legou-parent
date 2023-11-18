@@ -75,11 +75,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtAccessTokenConverter()).authenticationManager(authenticationManager);
 
-        //配置tokenService的基本参数，这里的配置以客户端为优先
+        //配置tokenService的基本参数，这里的配置以客户端（数据库）为优先
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         tokenServices.setTokenStore(endpoints.getTokenStore());
         tokenServices.setSupportRefreshToken(false);
         tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
+        //令牌的产生方式
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30));//30天
         endpoints.tokenServices(tokenServices);
@@ -97,7 +98,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     }
 
     /**
-     * 采用非对称加密算
+     * 采用非对称加密算法
      * 私钥颁发令牌，公钥校验令牌
      *
      * @return
