@@ -18,11 +18,11 @@ logging:
     org.springframework.web: debug
     com.lxs: debug
 
-#security:
-#  oauth2:
-#    resource:
-#      jwt:
-#        key-uri: http://localhost:9098/oauth/token_key	#如果使用JWT，可以获取公钥用于 token 的验签
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-uri: http://localhost:9098/oauth/token_key	#如果使用JWT，可以获取公钥用于 token 的验签
 #    client:
 #      access-token-uri: http://localhost:9098/oauth/token	#令牌端点
 #      user-authorization-uri: http://localhost:9098/oauth/authorize	#授权端点
