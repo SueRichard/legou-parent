@@ -11,6 +11,10 @@
 
     <packaging>pom</packaging>
     <artifactId>legou-item</artifactId>
+    <modules>
+        <module>legou-item-interface</module>
+        <module>legou-item-service</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

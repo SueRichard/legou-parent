@@ -9,11 +9,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <artifactId>legou-order</artifactId>
     <packaging>pom</packaging>
-    <artifactId>legou-search</artifactId>
     <modules>
-        <module>legou-search-interface</module>
-        <module>legou-search-service</module>
+        <module>legou-order-interface</module>
+        <module>legou-order-service</module>
     </modules>
 
     <properties>

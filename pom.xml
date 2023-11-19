@@ -16,13 +16,12 @@
         <module>legou-upload</module>
         <module>legou-canal</module>
         <module>legou-search</module>
-        <module>legou-search/legou-search-interface</module>
-        <module>legou-search/legou-search-service</module>
         <module>legou-page</module>
         <module>gateway</module>
         <module>legou-security</module>
         <module>legou-admin</module>
         <module>auth-center</module>
+        <module>legou-order</module>
     </modules>
 
     <packaging>pom</packaging>

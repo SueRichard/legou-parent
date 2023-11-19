@@ -2,6 +2,7 @@ package com.hh.legou.page.client;
 
 import com.hh.legou.item.api.SkuApi;
 import com.hh.legou.item.po.Sku;
+import com.hh.legou.item.po.Spu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -28,7 +29,13 @@ public interface SkuClient extends SkuApi {
          */
         @Override
         public List<Sku> selectSkusBySpuId(Long SpuId) {
-            log.info("异常，进入fallback方法");
+            log.error("异常发生，进入fallback方法");
+            return null;
+        }
+
+        @Override
+        public Sku edit(Long id) {
+            log.error("异常发生，进入fallback方法");
             return null;
         }
     }

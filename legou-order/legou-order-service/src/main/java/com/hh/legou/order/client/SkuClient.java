@@ -1,4 +1,4 @@
-package com.hh.legou.search.client;
+package com.hh.legou.order.client;
 
 import com.hh.legou.item.api.SkuApi;
 import com.hh.legou.item.po.Sku;
@@ -14,13 +14,14 @@ import java.util.List;
 /**
  * @author hh
  * @version 1.0
- * @time 23/09/2023 10:13
+ * @time 19/11/2023 17:01
  */
 @FeignClient(name = "item-service", fallback = SkuClient.SkuClientFallback.class)
 public interface SkuClient extends SkuApi {
     @Component
-    @RequestMapping("/item/sku-fallback")
+    @RequestMapping("/sku-fallback")
     class SkuClientFallback implements SkuClient {
+
         public static final Logger log = LoggerFactory.getLogger(SkuClientFallback.class);
 
         @Override

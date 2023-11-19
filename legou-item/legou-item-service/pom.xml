@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>legou-item-serive</artifactId>
+    <artifactId>legou-item-service</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

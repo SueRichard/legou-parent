@@ -1,7 +1,6 @@
-package com.hh.legou.search.client;
+package com.hh.legou.order.client;
 
-import com.hh.legou.item.api.SkuApi;
-import com.hh.legou.item.po.Sku;
+import com.hh.legou.item.api.SpuApi;
 import com.hh.legou.item.po.Spu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,23 +13,23 @@ import java.util.List;
 /**
  * @author hh
  * @version 1.0
- * @time 23/09/2023 10:13
+ * @time 19/11/2023 17:13
  */
-@FeignClient(name = "item-service", fallback = SkuClient.SkuClientFallback.class)
-public interface SkuClient extends SkuApi {
+@FeignClient(name = "item-service", fallback = SpuClient.SpuClientFallback.class)
+public interface SpuClient extends SpuApi {
     @Component
-    @RequestMapping("/item/sku-fallback")
-    class SkuClientFallback implements SkuClient {
-        public static final Logger log = LoggerFactory.getLogger(SkuClientFallback.class);
+    @RequestMapping("/spu-fallback2")
+    class SpuClientFallback implements SpuClient {
+        public static final Logger log = LoggerFactory.getLogger(SpuClientFallback.class);
 
         @Override
-        public List<Sku> selectSkusBySpuId(Long SpuId) {
+        public List<Spu> selectAll() {
             log.error("异常发生，进入fallback方法");
             return null;
         }
 
         @Override
-        public Sku edit(Long id) {
+        public Spu edit(Long id) {
             log.error("异常发生，进入fallback方法");
             return null;
         }
