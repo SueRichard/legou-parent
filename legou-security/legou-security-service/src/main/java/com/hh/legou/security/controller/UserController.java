@@ -9,15 +9,14 @@ import com.hh.legou.security.service.IUserService;
 import com.hh.legou.security.utils.BPwdEncoderUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
-import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
+//注意包
+import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 //import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 //import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
@@ -31,30 +30,70 @@ import java.util.List;
 
 /**
  * @Title:
- * @Description: 
- *
+ * @Description:
  * @Copyright 2019 hh - Powered By 雪松
  * @Author: hh
- * @Date:  2019/10/9
+ * @Date: 2019/10/9
  * @Version V1.0
  */
 @RestController
 @RequestMapping(value = "/user")
 public class UserController extends BaseController<IUserService, User> {
 
-//	@Autowired
-//	private OAuth2ClientProperties oAuth2ClientProperties;
+    @Autowired
+    private OAuth2ClientProperties oAuth2ClientProperties; //client_id, client_secret
 
-//	@Autowired
-//	private OAuth2ProtectedResourceDetails oAuth2ProtectedResourceDetails;
+    @Autowired
+    private OAuth2ProtectedResourceDetails oAuth2ProtectedResourceDetails; //access-token-uri, grant_type
 
-	@Autowired
-	private RestTemplate restTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
 
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+
+    /**
+     * 校验用户
+     * 发送http请求：获取令牌，即请求授权服务器
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    @RequestMapping("/login")
+    public ResponseEntity<OAuth2AccessToken> login(String username, String password) {
+        //1.验证用户
+        User user = service.getUserByUserName(username);
+        //没有该用户
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        //密码不对
+        if (!BPwdEncoderUtil.matches(password, user.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        //2.使用restTemplate发送请求到授权服务器，申请令牌
+        //准备请求头 "basic auth"
+        String clientSecret = oAuth2ClientProperties.getClientId() + ":" + oAuth2ClientProperties.getClientSecret();
+        clientSecret = "Basic " + Base64.getEncoder().encodeToString(clientSecret.getBytes());
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", clientSecret);
+
+        //准备请求体
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.put("username", Collections.singletonList(username));
+        map.put("password", Collections.singletonList(password));
+        map.put("grant_type", Collections.singletonList(oAuth2ProtectedResourceDetails.getGrantType()));
+        map.put("scope", oAuth2ProtectedResourceDetails.getScope());
+
+        //http entity 请求头，请求体
+        HttpEntity httpEntity = new HttpEntity(map, headers);
+        //access-token-uri中划线转驼峰，反序列化OAuth2AccessToken
+        return restTemplate.exchange(oAuth2ProtectedResourceDetails.getAccessTokenUri(), HttpMethod.POST, httpEntity, OAuth2AccessToken.class);
+    }
 
 	/*@RequestMapping("/login")
 	public ResponseEntity<OAuth2AccessToken> login(@Valid UserLoginParamDto loginDto, BindingResult bindingResult) throws Exception {
@@ -90,79 +129,79 @@ public class UserController extends BaseController<IUserService, User> {
 
 	}*/
 
-	@ApiOperation("通过登录获得用户")
-	@GetMapping("/get/{userName}")
-	public User getByUserName(@PathVariable("userName") String userName) {
-		return service.getUserByUserName(userName);
-	}
+    @ApiOperation("通过登录获得用户")
+    @GetMapping("/get/{userName}")
+    public User getByUserName(@PathVariable("userName") String userName) {
+        return service.getUserByUserName(userName);
+    }
 
-	@ApiOperation("通过用户ID获得角色")
-	@GetMapping("/select-roles/{id}")
-	public List<Role> selectRolesByUserId(@PathVariable("id") Long id) {
-		return service.selectRoleByUser(id);
-	}
+    @ApiOperation("通过用户ID获得角色")
+    @GetMapping("/select-roles/{id}")
+    public List<Role> selectRolesByUserId(@PathVariable("id") Long id) {
+        return service.selectRoleByUser(id);
+    }
 
-	/**
-	 * 验证用户名是否存在
-	 */
-	@ApiOperation("验证用户名是否存在")
-	@PostMapping("/validate-name/{userName}")
-	public String validUserName(@PathVariable String userName,  Long id) {
-		long rowCount = service.findCountByUserName(userName);
+    /**
+     * 验证用户名是否存在
+     */
+    @ApiOperation("验证用户名是否存在")
+    @PostMapping("/validate-name/{userName}")
+    public String validUserName(@PathVariable String userName, Long id) {
+        long rowCount = service.findCountByUserName(userName);
 
-		//修改时=原来的用户名
-		if (id != null) {
-			User user = service.getById(id);
-			if (null != userName && userName.equals(user.getUserName())) {
-				return "{\"success\": true}";
-			}
-		}
+        //修改时=原来的用户名
+        if (id != null) {
+            User user = service.getById(id);
+            if (null != userName && userName.equals(user.getUserName())) {
+                return "{\"success\": true}";
+            }
+        }
 
-		if (rowCount > 0) {
-			return "{\"success\": false}";
-		} else {
-			return "{\"success\": true}";
-		}
-	}
+        if (rowCount > 0) {
+            return "{\"success\": false}";
+        } else {
+            return "{\"success\": true}";
+        }
+    }
 
-	/**
-	 * 锁定用户
-	 */
-	@GetMapping("/lock/{id}")
-	@ApiOperation("锁定账户")
-	public ResponseBean lock(@PathVariable Long id) throws Exception {
-		ResponseBean rm = new ResponseBean();
-		try {
-			User u = service.getById(id);
+    /**
+     * 锁定用户
+     */
+    @GetMapping("/lock/{id}")
+    @ApiOperation("锁定账户")
+    public ResponseBean lock(@PathVariable Long id) throws Exception {
+        ResponseBean rm = new ResponseBean();
+        try {
+            User u = service.getById(id);
 
-			User user = new User();
-			user.setId(id);
-			if (null != u.getLock() && u.getLock()) {
-				rm.setMsg("用户已解锁");
-				user.setLock(false);
-			} else {
-				rm.setMsg("用户已锁定");
-				user.setLock(true);
-			}
-			service.updateById(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-			rm.setSuccess(false);
-			rm.setMsg("保存失败");
-		}
+            User user = new User();
+            user.setId(id);
+            if (null != u.getLock() && u.getLock()) {
+                rm.setMsg("用户已解锁");
+                user.setLock(false);
+            } else {
+                rm.setMsg("用户已锁定");
+                user.setLock(true);
+            }
+            service.updateById(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rm.setSuccess(false);
+            rm.setMsg("保存失败");
+        }
 
-		return rm;
-	}
+        return rm;
+    }
 
-	@Override
-	public void afterEdit(User domain) {
-		//生成角色列表, 如：1,3,4
-		List<Role> roles = service.selectRoleByUser(domain.getId());
-		Long[] ids = new Long[roles.size()];
-		for (int i=0; i< roles.size(); i++) {
-			ids[i] = roles.get(i).getId();
-		}
-		domain.setRoleIds(ids);
-	}
+    @Override
+    public void afterEdit(User domain) {
+        //生成角色列表, 如：1,3,4
+        List<Role> roles = service.selectRoleByUser(domain.getId());
+        Long[] ids = new Long[roles.size()];
+        for (int i = 0; i < roles.size(); i++) {
+            ids[i] = roles.get(i).getId();
+        }
+        domain.setRoleIds(ids);
+    }
 
 }
