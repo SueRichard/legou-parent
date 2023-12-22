@@ -18,7 +18,7 @@ import reactor.core.publisher.Mono;
  * @version 1.0
  * @time 09/11/2023 08:20
  */
-@Component
+//@Component
 public class AuthorizeFilter implements GlobalFilter, Ordered {
     private static final String AUTHORIZE_TOKEN = "Authorization";
 
