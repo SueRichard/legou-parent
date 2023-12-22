@@ -11,7 +11,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 
 @Configuration
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)//激活方法上的PreAuthorize注解
+//开启方法上preAuthorize注解
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Autowired
