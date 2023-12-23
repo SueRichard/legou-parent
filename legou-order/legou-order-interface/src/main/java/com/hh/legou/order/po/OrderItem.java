@@ -1,4 +1,4 @@
-package com.hh.legou.po;
+package com.hh.legou.order.po;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

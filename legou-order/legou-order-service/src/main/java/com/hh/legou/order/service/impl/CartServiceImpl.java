@@ -5,7 +5,7 @@ import com.hh.legou.item.po.Spu;
 import com.hh.legou.order.client.SkuClient;
 import com.hh.legou.order.client.SpuClient;
 import com.hh.legou.order.service.CartService;
-import com.hh.legou.po.OrderItem;
+import com.hh.legou.order.po.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
