@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * feign 拦截器
  * 调用feign之前执行
- * 资源服务器 rbac角色权限控制 设置了3访问控制，需要传递令牌
+ * RBAC角色权限控制（security-service） 开启了资源服务器的授权认证访问，需要传递令牌
  * 传递管理员令牌，由于是微服务内部之间的调用，所以使用管理员令牌
  *
  * @author hh
