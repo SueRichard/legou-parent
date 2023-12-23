@@ -1,5 +1,9 @@
 package com.hh.legou.order.service;
 
+import com.hh.legou.order.po.OrderItem;
+
+import java.util.List;
+
 /**
  * @author hh
  * @version 1.0
@@ -14,4 +18,12 @@ public interface CartService {
      * @param username 用户名，从登录令牌获取
      */
     void add(Long skuId, Integer num, String username);
+
+    /**
+     * 从redis中查询当前用户的购物车数据
+     *
+     * @param username
+     * @return
+     */
+    List<OrderItem> list(String username);
 }

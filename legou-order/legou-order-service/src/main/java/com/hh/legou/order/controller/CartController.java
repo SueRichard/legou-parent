@@ -1,11 +1,15 @@
 package com.hh.legou.order.controller;
 
+import com.hh.legou.order.po.OrderItem;
 import com.hh.legou.order.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author hh
@@ -33,5 +37,17 @@ public class CartController {
         String username = "hh";
         cartService.add(id, num, username);
         return ResponseEntity.ok("添加成功");
+    }
+
+    /**
+     * 查询购物车数据
+     *
+     * @return
+     */
+    @RequestMapping("/list")
+    public ResponseEntity<List<OrderItem>> list() {
+        String username = "hh";
+        List<OrderItem> list = cartService.list(username);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

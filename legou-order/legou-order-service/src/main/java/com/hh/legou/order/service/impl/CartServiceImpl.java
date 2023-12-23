@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author hh
  * @version 1.0
@@ -29,6 +31,10 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void add(Long skuId, Integer num, String username) {
+        if (num <= 0) {
+            redisTemplate.boundHashOps("Cart_" + username).delete(skuId);
+            return;
+        }
         //根据id获取sku
         Sku sku = skuClient.edit(skuId);
         if (sku != null) {
@@ -59,5 +65,10 @@ public class CartServiceImpl implements CartService {
              */
             redisTemplate.boundHashOps("Cart_" + username).put(skuId, orderItem);
         }
+    }
+
+    @Override
+    public List<OrderItem> list(String username) {
+        return redisTemplate.boundHashOps("Cart_" + username).values();
     }
 }
