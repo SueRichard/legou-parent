@@ -22,7 +22,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/user/**", "/security/user/**").permitAll()
+//                .antMatchers("/user/**", "/security/user/**").permitAll() //未认证也可以访问
+                .antMatchers("/user/login", "/security/user/login").permitAll()
                 .antMatchers("/book/**").hasRole("ADMIN") //用于测试
                 .antMatchers("/hh/book/**").hasRole("ADMIN") //自己测试
                 .antMatchers("/**").authenticated();

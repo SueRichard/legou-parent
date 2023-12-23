@@ -80,4 +80,28 @@ public class JwtTest {
         String claims = jwt.getClaims();
         System.out.println(claims);
     }
+
+    /**
+     * 使用私钥生成令牌
+     *
+     * @throws JsonProcessingException
+     */
+    @Test
+    public void testCreateAdminJwt() throws JsonProcessingException {
+        //存储秘钥的工厂对象 访问密钥库密码hh0000
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("kaikeba.jks"), "kaikeba".toCharArray());
+        //密钥对（公钥 -> 私钥）秘钥密码hh1234
+        KeyPair keyPair = keyStoreKeyFactory.getKeyPair("kaikeba", "kaikeba".toCharArray());
+        //私钥
+        RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
+        //自定义payload信息
+        Map<String, Object> tokenMap = new HashMap<>();
+        tokenMap.put("user_name", "admin");
+        tokenMap.put("authorities", new String[]{"ROLE_ADMIN"});
+        tokenMap.put("client_id", "client");
+        //使用工具类，通过私钥颁发jwt令牌
+        Jwt jwt = JwtHelper.encode(new ObjectMapper().writeValueAsString(tokenMap), new RsaSigner(privateKey));
+        String token = jwt.getEncoded();
+        System.out.println(token);
+    }
 }
