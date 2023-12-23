@@ -14,7 +14,7 @@ import java.util.List;
  * @version 1.0
  * @time 23/09/2023 10:09
  */
-@RequestMapping("/item/sku")
+@RequestMapping("/sku")
 public interface SkuApi {
     @ApiOperation(value = "查询spu对应sku", notes = "根据spuId查询sku集合")
     @RequestMapping("/select-skus-by-spuid/{id}")

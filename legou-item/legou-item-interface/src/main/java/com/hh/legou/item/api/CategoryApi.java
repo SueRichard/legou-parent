@@ -16,7 +16,7 @@ import java.util.List;
  * @version 1.0
  * @time 17/09/2023 17:21
  */
-@RequestMapping("/item/category")
+@RequestMapping("/category")
 public interface CategoryApi {
 
     @ApiOperation(value = "查询分类", notes = "条件查询分类")

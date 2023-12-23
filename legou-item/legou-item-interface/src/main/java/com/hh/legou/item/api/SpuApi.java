@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  * @time 24/09/2023 10:20
  */
-@RequestMapping("item/spu")
+@RequestMapping("/spu")
 public interface SpuApi {
     @ApiOperation(value = "查询所有", notes = "查询所有spu")
     @GetMapping("/list-all")

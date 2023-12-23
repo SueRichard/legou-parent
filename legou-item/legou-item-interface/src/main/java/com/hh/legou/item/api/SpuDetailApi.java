@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version 1.0
  * @time 24/09/2023 10:31
  */
-@RequestMapping("/item/spu-detail")
+@RequestMapping("/spu-detail")
 public interface SpuDetailApi {
     @ApiOperation(value = "加载", notes = "根据id加载")
     @GetMapping("/edit/{id}")

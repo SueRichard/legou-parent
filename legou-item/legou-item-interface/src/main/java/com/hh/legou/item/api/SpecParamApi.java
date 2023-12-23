@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  * @time 24/09/2023 10:52
  */
-@RequestMapping("/item/param")
+@RequestMapping("/param")
 public interface SpecParamApi {
     @ApiOperation(value = "查询", notes = "根据实体条件查询参数")
     @PostMapping(value = "/select-param-by-entity", consumes = "application/json")//注意这里是json

@@ -12,7 +12,7 @@ import java.util.List;
  * @version 1.0
  * @time 23/09/2023 09:01
  */
-@RequestMapping("/item/brand")
+@RequestMapping("/brand")
 public interface BrandApi {
 
     @ApiOperation(value = "根据ids查询", notes = "根据ids查询")
