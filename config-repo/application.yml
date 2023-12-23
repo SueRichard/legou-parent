@@ -14,6 +14,7 @@ feign:
   hystrix:
      enabled: true #开启熔断
 
+# 默认线程隔离
 hystrix:
    command:
       default:
@@ -21,6 +22,8 @@ hystrix:
             isolation:
               thread:
                  timeoutInMilliseconds: 60000 #熔断超时时间
+              strategy: SEMAPHORE # 使用信号量隔离，否则feign拦截器获取不到请求头，因为这里默认是线程隔离
+
 ribbon:
   ReadTimeout: 60000 #通信超时时间
   ConnectTimeout: 60000 #连接超时时间
