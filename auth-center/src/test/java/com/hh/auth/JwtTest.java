@@ -13,6 +13,7 @@ import org.springframework.security.jwt.crypto.sign.RsaVerifier;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateCrtKey;
 import java.util.HashMap;
@@ -65,7 +66,7 @@ public class JwtTest {
     public void testVerify() {
         //上面生成的令牌
         String token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4sdXNlciIsIm5hbWUiOiJzdWUiLCJpZCI6MX0.QsP4jwbeaiyyMrdhwLHc6QXOrEPSOKdncpD6AJb9dVNoqQ73TLGo3VkR-_L0HeC8laBJE2WEkBMV27LIrUueAik8k2HXfsIDUzpOuNQlO_JCdiiTrn52YQ1YzkmEysD5ZTw3AH8QQe0MS37eR81Y2s34pLIn9evVt0Z3gWckhDUMVi9D2DeM88NlVx6nNwOwFV6e1cQqnnrr9wK56Cp-SvxNCM_rLYrbu0H0pK_LCGTxnv6fprfyB64lgZ1nJ5LYpk7Pp3P9Xu3GOtQyGmQx5ZI-2s009vnd-ihEQ54op5YGhJ_dEx7uT2o9ewL2-rFuzSD4BDaATDzItN7ZNSphHA";
-        //公钥，这里的换行可以不要
+        //公钥，这里的换行可以不要 hh的公钥
         String publicKey = "-----BEGIN PUBLIC KEY-----\n" +
                 "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoTT/OfbabBjeJpAEhb9H\n" +
                 "bk0kKbOaHsOTNy0ogIZ7gxEwcOGDz7Ec4y1vl2zDRkGfodx9yIxExIJS12WhsAZc\n" +
@@ -103,5 +104,35 @@ public class JwtTest {
         Jwt jwt = JwtHelper.encode(new ObjectMapper().writeValueAsString(tokenMap), new RsaSigner(privateKey));
         String token = jwt.getEncoded();
         System.out.println(token);
+    }
+
+    /**
+     * 使用公钥校验令牌
+     */
+    @Test
+    public void getUsernameByToken() {
+        //上面生成的令牌
+        String token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDMzMzYxOTAsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9NQU5BR0VSIiwiUk9MRV9BRE1JTiJdLCJqdGkiOiJhNTQ3MjMxNi02YjllLTQ1NmQtODIyZC0xMWYzNDA5YTRmZmUiLCJjbGllbnRfaWQiOiJjbGllbnQiLCJzY29wZSI6WyJyZWFkIl19.mbOJDyuWtJ4rWZHH8_Wb7htcjiBQhPINcZlkW5ysbvifXHbpFfa8FOdI2LSY5HvzkYn6mXi9lQ735ymswOcBpp9Zxa8ix_G_0wNy0njM-tgE8YHjDP9FkEjsC-C28Bl1EuolERqQrQLcaFpKk1Z0NnBIoZFQCSuzrnKq7zHvMP3TFNDG86U6mKMAaoPAAUjSXjWRKJR-I6stO_WN25Kos_1b1mmIHiRpu34yLshgjZRicUAF83-utIrIdLPFv2fs8v-0-VAP_78-xapgqWD3AT6kZ4_aqrCTIQYtUrzaqTNCT-1USlV1EE1L9xiQKnPYii6oxn7I0JoNx9O9zOpJIQ";
+        //公钥，这里的换行可以不要 kaikeba的公钥
+        String publicKey = "-----BEGIN PUBLIC KEY-----\n" +
+                "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwtYpjt7NtpS1B51x6PUK\n" +
+                "7ryvKySK4VQi7KUCGBm6kisErNM+FwdgKMbpQxTtWoYyXfQsWwuhBW45+uF+Z5DU\n" +
+                "DaLtHlMV55eA5fkGLFZ1F9ppZC+2Etsy1CyPqA0Mx8R0/HbMB1no4KTlQpqST7Jj\n" +
+                "CdtwLWqUd68zDlfToIsWB1fHuYHbH/DCGUBmZb+16805/SjWkYvj3B6F+WJ8Gm47\n" +
+                "/OJBH+wo7k4GWZ7OXdMcNnYWMyBfa4abjo7cxjoHL2fDanS6And4Sh3cZEJde4Wg\n" +
+                "XsEktvR/EaZR7CeQzwzOg47+5cCcFSYgmVfpDyLsBnFkG3WFs/qZ3yPzy+DQKLIF\n" +
+                "2wIDAQAB\n" +
+                "-----END PUBLIC KEY-----";
+        //校验令牌
+        Jwt jwt = JwtHelper.decodeAndVerify(token, new RsaVerifier(publicKey));
+        String claims = jwt.getClaims();
+        System.out.println(claims);
+        try {
+            Map<String, String> map = new ObjectMapper().readValue(claims, Map.class);
+            String username = map.get("user_name");
+            System.out.println(username);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
