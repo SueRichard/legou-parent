@@ -1,6 +1,8 @@
 package com.hh.legou.order.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.hh.legou.core.po.BaseEntity;
 import lombok.Data;
@@ -15,6 +17,12 @@ import java.util.Date;
 @Data
 @TableName("order_")
 public class Order extends BaseEntity {
+
+    /**
+     * 采用雪花算法，获得主键
+     */
+    @TableId(value = "id_", type = IdType.INPUT)
+    protected Long id;
 
     /**
      * 数量合计
