@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1.0
  * @time 19/11/2023 18:35
  */
-public interface CartService {
+public interface ICartService {
     /**
      * 添加商品到购物车
      *

@@ -2,7 +2,7 @@ package com.hh.legou.order.controller;
 
 import com.hh.legou.order.config.TokenDecode;
 import com.hh.legou.order.po.OrderItem;
-import com.hh.legou.order.service.CartService;
+import com.hh.legou.order.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class CartController {
 
     @Autowired
-    private CartService cartService;
+    private ICartService ICartService;
 
     @Autowired
     private TokenDecode tokenDecode;
@@ -42,7 +42,7 @@ public class CartController {
         //从 Spring security获取当前用户
         Map<String, String> userInfo = tokenDecode.getUserInfo();
         String username = userInfo.get("user_name");
-        cartService.add(id, num, username);
+        ICartService.add(id, num, username);
         return ResponseEntity.ok("添加成功");
     }
 
@@ -55,7 +55,7 @@ public class CartController {
     public ResponseEntity<List<OrderItem>> list() throws IOException {
         Map<String, String> userInfo = tokenDecode.getUserInfo();
         String username = userInfo.get("user_name");
-        List<OrderItem> list = cartService.list(username);
+        List<OrderItem> list = ICartService.list(username);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

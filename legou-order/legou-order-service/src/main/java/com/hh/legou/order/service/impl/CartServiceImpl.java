@@ -4,7 +4,7 @@ import com.hh.legou.item.po.Sku;
 import com.hh.legou.item.po.Spu;
 import com.hh.legou.order.client.SkuClient;
 import com.hh.legou.order.client.SpuClient;
-import com.hh.legou.order.service.CartService;
+import com.hh.legou.order.service.ICartService;
 import com.hh.legou.order.po.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,7 +18,7 @@ import java.util.List;
  * @time 19/11/2023 18:43
  */
 @Service
-public class CartServiceImpl implements CartService {
+public class CartServiceImpl implements ICartService {
 
     @Autowired
     private SkuClient skuClient;
