@@ -56,7 +56,7 @@ public class OrderItem extends BaseEntity {
      * 订单ID
      */
     @TableField("order_id_")
-    private String orderId;
+    private Long orderId;
 
     /**
      * 商品名称
@@ -74,7 +74,7 @@ public class OrderItem extends BaseEntity {
      * 数量
      */
     @TableField("num_")
-    private Integer num;
+    private Long num;
 
     /**
      * 总金额
@@ -98,13 +98,13 @@ public class OrderItem extends BaseEntity {
      * 重量
      */
     @TableField("weight_")
-    private Integer weight;
+    private Long weight;
 
     /**
      * 运费
      */
     @TableField("post_fee_")
-    private Integer postFee;
+    private Long postFee;
 
     /**
      * 是否退货,0:未退货，1：已退货
