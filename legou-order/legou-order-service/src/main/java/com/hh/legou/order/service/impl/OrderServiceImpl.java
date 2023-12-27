@@ -12,4 +12,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderServiceImpl extends CrudServiceImpl<Order> implements IOrderService {
+
+    @Override
+    public void add(Order order) {
+
+    }
 }
