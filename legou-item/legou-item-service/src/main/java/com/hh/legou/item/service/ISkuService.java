@@ -9,4 +9,11 @@ import com.hh.legou.item.po.Sku;
  * @time 10/09/2023 15:40
  */
 public interface ISkuService extends ICrudService<Sku> {
+
+    /**
+     * 减库存
+     * @param num
+     * @param skuId
+     */
+    void decrCount(Integer num, Long skuId);
 }

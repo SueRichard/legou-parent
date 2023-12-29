@@ -17,7 +17,7 @@ public interface ICartService {
      * @param num      商品数量
      * @param username 用户名，从登录令牌获取
      */
-    void add(Long skuId, Long num, String username);
+    void add(Long skuId, Integer num, String username);
 
     /**
      * 从redis中查询当前用户的购物车数据

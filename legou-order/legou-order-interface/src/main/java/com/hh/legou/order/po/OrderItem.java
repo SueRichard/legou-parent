@@ -74,7 +74,7 @@ public class OrderItem extends BaseEntity {
      * 数量
      */
     @TableField("num_")
-    private Long num;
+    private Integer num;
 
     /**
      * 总金额

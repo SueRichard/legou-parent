@@ -3,6 +3,7 @@ package com.hh.legou.order.controller;
 import com.hh.legou.order.config.TokenDecode;
 import com.hh.legou.order.po.OrderItem;
 import com.hh.legou.order.service.ICartService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class CartController {
      * @return
      */
     @RequestMapping("/add")
-    public ResponseEntity add(Long id, Long num) throws IOException {
+    public ResponseEntity add(Long id, Integer num) throws IOException {
         //从 Spring security获取当前用户
         Map<String, String> userInfo = tokenDecode.getUserInfo();
         String username = userInfo.get("user_name");

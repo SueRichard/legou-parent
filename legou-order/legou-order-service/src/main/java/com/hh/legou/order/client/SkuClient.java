@@ -39,6 +39,11 @@ public interface SkuClient extends SkuApi {
             log.error("异常发生，进入fallback方法");
             return null;
         }
+
+        @Override
+        public void decrCount(Integer num, Long skuId) {
+            log.error("异常发生，进入fallback方法");
+        }
     }
 
     /**
@@ -62,6 +67,11 @@ public interface SkuClient extends SkuApi {
                 @Override
                 public Sku edit(Long id) {
                     return null;
+                }
+
+                @Override
+                public void decrCount(Integer num, Long skuId) {
+                    log.error("异常发生，进入fallback方法");
                 }
             };
         }

@@ -23,4 +23,9 @@ public class SkuController extends BaseController<ISkuService, Sku> {
         sku.setSpuId(spuId);
         return service.list(sku);
     }
+
+    @PostMapping("/decr-count")
+    public void decrCount(@RequestParam("num") Integer num, @RequestParam("skuId") Long skuId) {
+        service.decrCount(num, skuId);
+    }
 }

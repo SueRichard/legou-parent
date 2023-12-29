@@ -30,7 +30,7 @@ public class CartServiceImpl implements ICartService {
     private RedisTemplate redisTemplate;
 
     @Override
-    public void add(Long skuId, Long num, String username) {
+    public void add(Long skuId, Integer num, String username) {
         if (num <= 0) {
             redisTemplate.boundHashOps("Cart_" + username).delete(skuId);
             return;
