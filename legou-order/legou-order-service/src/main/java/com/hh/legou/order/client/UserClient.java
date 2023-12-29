@@ -1,4 +1,4 @@
-package com.hh.cloud.client;
+package com.hh.legou.order.client;
 
 import com.hh.legou.security.api.UserApi;
 import com.hh.legou.security.po.Role;

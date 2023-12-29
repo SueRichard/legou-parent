@@ -3,6 +3,7 @@ package com.hh.legou.order.service.impl;
 import com.hh.legou.common.utils.IdWorker;
 import com.hh.legou.core.service.impl.CrudServiceImpl;
 import com.hh.legou.order.client.SkuClient;
+import com.hh.legou.order.client.UserClient;
 import com.hh.legou.order.dao.IOrderItemDao;
 import com.hh.legou.order.po.Order;
 import com.hh.legou.order.po.OrderItem;
@@ -33,6 +34,9 @@ public class OrderServiceImpl extends CrudServiceImpl<Order> implements IOrderSe
 
     @Autowired
     private SkuClient skuClient;
+
+    @Autowired
+    private UserClient userClient;
 
     @Override
     public void add(Order order) {
@@ -67,10 +71,10 @@ public class OrderServiceImpl extends CrudServiceImpl<Order> implements IOrderSe
 
         getBaseMapper().insert(order);
 
-
         //4.增加用户积分
+        userClient.addPoint(10l, order.getUsername());
 
         //5.删除redis购物车数据
-
+        redisTemplate.delete("Cart_" + order.getUsername());
     }
 }

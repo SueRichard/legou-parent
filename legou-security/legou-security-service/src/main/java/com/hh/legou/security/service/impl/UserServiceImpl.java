@@ -59,4 +59,10 @@ public class UserServiceImpl extends CrudServiceImpl<User> implements IUserServi
 		return getBaseMapper().selectOne(Wrappers.<User>query().eq("user_name_", userName));
 	}
 
+	@Override
+	public void addPoint(Long point, String userName) {
+		((UserDao) getBaseMapper()).addPoint(point, userName);
+	}
+
+
 }

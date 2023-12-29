@@ -204,4 +204,8 @@ public class UserController extends BaseController<IUserService, User> {
         domain.setRoleIds(ids);
     }
 
+    @GetMapping(value = "/add-point")
+    public void addPoint(@RequestParam("point") Long point, @RequestParam("username") String username) {
+        service.addPoint(point, username);
+    }
 }

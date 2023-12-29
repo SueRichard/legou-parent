@@ -42,5 +42,10 @@ public interface UserClient extends UserApi {
             log.info("异常发生，进入fallback方法");
             return null;
         }
+
+        @Override
+        public void addPoint(Long point, String username) {
+            log.info("异常发生，进入fallback方法");
+        }
     }
 }
