@@ -12,7 +12,7 @@ logging:
 spring:
   rabbitmq:
     host: 192.168.220.110
-    port: 5672
+    port: 5672 # 如果不写用户名和密码，默认就是guest/guest
 
 mq:
   pay:
