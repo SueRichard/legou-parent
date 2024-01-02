@@ -28,3 +28,12 @@ security:
       resource:
          jwt:
             key-uri: http://localhost:9098/oauth/token_key # jwt，获取公钥，用于token验签
+
+mq:
+  pay:
+    exchange:
+      order: exchange.pay.order
+    queue:
+      order: queue.pay.order
+    routing:
+      key: routing.pay.order

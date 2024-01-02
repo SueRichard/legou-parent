@@ -2,7 +2,11 @@ package com.hh.legou.pay.controller;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hh.legou.pay.config.AppUtil;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,6 +20,15 @@ import java.util.Map;
 
 @Controller
 public class NotifyController {
+
+    @Autowired
+    private Environment env;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     //接收支付宝返回的异步通知的信息
     @RequestMapping("/getnotify")
@@ -73,6 +86,11 @@ public class NotifyController {
             }
 
             out.println("success");
+
+            //异步发送 支付宝支付成功所返回消息到rabbitmq
+            String data = objectMapper.writeValueAsString(params);
+            System.out.println("支付宝回调信息：" + data);
+            rabbitTemplate.convertAndSend(env.getProperty("mq.pay.exchange.order"), env.getProperty("mq.pay.routing.key"), data);
 
         } else {//验证失败
             out.println("fail");

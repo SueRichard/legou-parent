@@ -77,4 +77,15 @@ public class OrderServiceImpl extends CrudServiceImpl<Order> implements IOrderSe
         //5.删除redis购物车数据
         redisTemplate.delete("Cart_" + order.getUsername());
     }
+
+    @Override
+    public void updatePayStatus(String outTradeNo, String tradeNo) {
+        Order order = getBaseMapper().selectById(Long.parseLong(outTradeNo));
+        order.setUpdateTime(new Date());
+        order.setPayTime(new Date());
+        order.setPayStatus("1");
+        order.setOrderStatus("1");
+        order.setTransactionId(tradeNo);
+        getBaseMapper().updateById(order);
+    }
 }
