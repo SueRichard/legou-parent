@@ -5,6 +5,9 @@ spring:
    redis:
       host: 192.168.220.110
       port: 6379
+   rabbitmq:
+     host: 192.168.220.110
+     port: 5672
 
 mybatis-plus:
     mapper-locations: classpath*:mybatis/*/*.xml
