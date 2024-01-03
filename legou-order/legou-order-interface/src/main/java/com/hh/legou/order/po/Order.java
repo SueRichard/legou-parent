@@ -157,13 +157,13 @@ public class Order extends BaseEntity {
     private String transactionId;
 
     /**
-     * 订单状态,0:未完成,1:已完成，2：已退货
+     * 订单状态,0:未完成,1:已完成，2：已退货，3：已取消
      */
     @TableField("order_status_")
     private String orderStatus;
 
     /**
-     * 支付状态,0:未支付，1：已支付，2：支付失败，3：已取消
+     * 支付状态,0:未支付，1：已支付，2：支付失败
      */
     @TableField("pay_status_")
     private String payStatus;

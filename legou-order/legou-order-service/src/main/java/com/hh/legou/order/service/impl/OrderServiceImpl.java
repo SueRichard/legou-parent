@@ -8,7 +8,9 @@ import com.hh.legou.order.dao.IOrderItemDao;
 import com.hh.legou.order.po.Order;
 import com.hh.legou.order.po.OrderItem;
 import com.hh.legou.order.service.IOrderService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,12 @@ public class OrderServiceImpl extends CrudServiceImpl<Order> implements IOrderSe
 
     @Autowired
     private UserClient userClient;
+
+    @Autowired
+    private Environment env;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public void add(Order order) {
@@ -76,6 +84,9 @@ public class OrderServiceImpl extends CrudServiceImpl<Order> implements IOrderSe
 
         //5.删除redis购物车数据
         redisTemplate.delete("Cart_" + order.getUsername());
+
+        //6.发送延迟30分钟（实际测试15秒）消息，未支付，取消订单，回滚库存
+        rabbitTemplate.convertAndSend(env.getProperty("mq.order.exchange.ttl"), env.getProperty("mq.order.routing.ttl"), order.getId().toString());
     }
 
     @Override

@@ -40,3 +40,13 @@ mq:
       order: queue.pay.order
     routing:
       key: routing.pay.order
+  order: # 订单超时取消，死信（超时导致）队列
+    exchange:
+      ttl: exchange.order.ttl
+      dlx: exchange.order.dlx
+    queue:
+      ttl: queue.order.ttl
+      dlx: queue.order.dlx
+    routing:
+      ttl: routing.order.ttl
+      dlx: routing.order.dlx
