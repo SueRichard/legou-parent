@@ -4,10 +4,7 @@ import com.hh.legou.common.utils.DateUtil;
 import com.hh.legou.core.controller.BaseController;
 import com.hh.legou.seckill.po.SecKillGoods;
 import com.hh.legou.seckill.service.ISecKillGoodsService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -29,5 +26,17 @@ public class SecKillGoodsController extends BaseController<ISecKillGoodsService,
             System.out.println(date);
         }
         return dates;
+    }
+
+    /**
+     * 获取指定时区的所有秒杀商品
+     *http://localhost:9011/seckill-goods/list/2024010510
+     *
+     * @param time 时区
+     * @return
+     */
+    @RequestMapping("/list/{time}")
+    public List<SecKillGoods> list(@PathVariable("time") String time) {
+        return service.list(time);
     }
 }
