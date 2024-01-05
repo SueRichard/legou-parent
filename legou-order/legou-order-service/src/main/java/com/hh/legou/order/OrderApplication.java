@@ -31,6 +31,6 @@ public class OrderApplication {
      */
     @Bean
     public IdWorker idWorker() {
-        return new IdWorker(1, 1);
+        return new IdWorker(0, 1);
     }
 }
