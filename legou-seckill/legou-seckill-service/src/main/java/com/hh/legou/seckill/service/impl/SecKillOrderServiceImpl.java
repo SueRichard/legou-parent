@@ -28,6 +28,9 @@ public class SecKillOrderServiceImpl extends CrudServiceImpl<SecKillOrder> imple
 
     @Override
     public Boolean add(Long id, String time, String username) {
+        //队列削峰
+
+        //多线程抢单
         multiThreadCreateOrder.creatOrder(id, time, username);
         return true;
     }
