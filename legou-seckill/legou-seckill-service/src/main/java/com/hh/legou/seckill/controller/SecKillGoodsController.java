@@ -30,7 +30,7 @@ public class SecKillGoodsController extends BaseController<ISecKillGoodsService,
 
     /**
      * 获取指定时区的所有秒杀商品
-     *http://localhost:9011/seckill-goods/list/2024010510
+     * http://localhost:9011/seckill-goods/list/2024010510
      *
      * @param time 时区
      * @return
@@ -38,5 +38,18 @@ public class SecKillGoodsController extends BaseController<ISecKillGoodsService,
     @RequestMapping("/list/{time}")
     public List<SecKillGoods> list(@PathVariable("time") String time) {
         return service.list(time);
+    }
+
+    /**
+     * 根据时区和id查询秒杀商品
+     * http://localhost:9011/seckill-goods/one?time=2024010512&id=5
+     *
+     * @param time
+     * @param id
+     * @return
+     */
+    @RequestMapping("/one")
+    public SecKillGoods one(String time, Long id) {
+        return service.one(time, id);
     }
 }

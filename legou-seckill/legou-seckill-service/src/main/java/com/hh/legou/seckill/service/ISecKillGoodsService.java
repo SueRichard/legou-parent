@@ -19,4 +19,13 @@ public interface ISecKillGoodsService extends ICrudService<SecKillGoods> {
      * @return
      */
     List<SecKillGoods> list(String key);
+
+    /**
+     * 根据id查询商品详情
+     *
+     * @param time 时间区间
+     * @param id   商品id
+     * @return
+     */
+    SecKillGoods one(String time, Long id);
 }
