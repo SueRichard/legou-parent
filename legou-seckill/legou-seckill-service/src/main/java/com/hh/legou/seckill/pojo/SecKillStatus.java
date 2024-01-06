@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SecKillStatus {
+public class SecKillStatus implements Serializable {
 
     /**
      * 秒杀用户名
@@ -52,4 +53,11 @@ public class SecKillStatus {
      */
     private String time;
 
+    public SecKillStatus(String username, Date createTime, Integer status, Long goodsId, String time) {
+        this.username = username;
+        this.createTime = createTime;
+        this.status = status;
+        this.goodsId = goodsId;
+        this.time = time;
+    }
 }

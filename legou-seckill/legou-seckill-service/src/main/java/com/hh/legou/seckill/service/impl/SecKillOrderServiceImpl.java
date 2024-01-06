@@ -6,6 +6,7 @@ import com.hh.legou.core.service.impl.CrudServiceImpl;
 import com.hh.legou.seckill.dao.SecKillGoodsDao;
 import com.hh.legou.seckill.po.SecKillGoods;
 import com.hh.legou.seckill.po.SecKillOrder;
+import com.hh.legou.seckill.pojo.SecKillStatus;
 import com.hh.legou.seckill.service.ISecKillOrderService;
 import com.hh.legou.seckill.task.MultiThreadCreatOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +23,20 @@ import java.util.Date;
 @Service
 public class SecKillOrderServiceImpl extends CrudServiceImpl<SecKillOrder> implements ISecKillOrderService {
 
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Autowired
     private MultiThreadCreatOrder multiThreadCreateOrder;
 
     @Override
     public Boolean add(Long id, String time, String username) {
-        //队列削峰
-
+        SecKillStatus secKillStatus = new SecKillStatus(username, new Date(), 1, id, time);
+        //保证公平性，队列削峰的一种方式
+        //将秒杀排队信息，leftPush存入redis的list队列中，左压右取
+        redisTemplate.boundListOps(SystemConstants.SEC_KILL_USER_QUEUE_KEY).leftPush(secKillStatus);
         //多线程抢单
-        multiThreadCreateOrder.creatOrder(id, time, username);
+        multiThreadCreateOrder.creatOrder();
         return true;
     }
 }
