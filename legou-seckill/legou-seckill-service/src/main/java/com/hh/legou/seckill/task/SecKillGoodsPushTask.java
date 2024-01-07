@@ -20,7 +20,7 @@ import java.util.Set;
  * @version 1.0
  * @time 04/01/2024 16:46
  */
-//@Component
+@Component
 public class SecKillGoodsPushTask {
 
     @Autowired
@@ -32,7 +32,7 @@ public class SecKillGoodsPushTask {
     /**
      * 定时任务，每隔10秒执行一次
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+    //@Scheduled(cron = "0/10 * * * * ?")
     public void loadGoodsPushRedis() {
         //获取当前时间后的秒杀间隔时间段5个
         List<Date> dateMenus = DateUtil.getDateMenus();
