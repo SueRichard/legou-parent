@@ -31,6 +31,18 @@ public class SecKillOrderServiceImpl extends CrudServiceImpl<SecKillOrder> imple
 
     @Override
     public Boolean add(Long id, String time, String username) {
+        /**
+         * 用户排队次数 namespace= userQueueCount
+         *                           - username 次数
+         *
+         */
+        Long userQueueCount = redisTemplate.boundHashOps(SystemConstants.SEC_KILL_QUEUE_REPEAT_KEY).increment(username, 1);
+        if (userQueueCount > 1) {
+            //多次秒杀，后续可以按照原价购买，不可以继续按照秒杀价购买
+            throw new RuntimeException("秒杀重复排队");
+        }
+
+
         SecKillStatus secKillStatus = new SecKillStatus(username, new Date(), 1, id, time);
         //保证公平性，队列削峰的一种方式
         //将秒杀排队信息，leftPush存入redis的list队列中，左压右取
