@@ -51,7 +51,8 @@ OAuth2 is used. You can also generate your own public/private key at`auth-center
 # Status
 
 Now is developing, please look forward to it. And welcome you participate in.  
-Prepare to the next stage
+Prepare to the next stage  
+first stage : complete security
 
 ----------
 
