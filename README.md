@@ -52,7 +52,7 @@ OAuth2 is used. You can also generate your own public/private key at`auth-center
 
 Now is developing, please look forward to it. And welcome you participate in.  
 Prepare to the next stage  
-first stage : complete security
+first stage : complete part of security
 
 ----------
 
