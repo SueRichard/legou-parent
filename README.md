@@ -52,10 +52,10 @@ OAuth2 is used. You can also generate your own public/private key at`auth-center
 
 Now is developing, please look forward to it. And welcome you participate in.  
 Prepare to the next stage  
-first stage : complete part of security  
+first stage : complete part of security. Starting...
 second stage: ali related module wait for development and oss service...
-third stage: complete the business module for order service
-wait for next plan
+third stage: complete the business module for order service.
+wait for next plan...
 
 ----------
 
